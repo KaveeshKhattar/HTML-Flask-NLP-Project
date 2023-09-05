@@ -1,0 +1,29 @@
+{% extends layout.html %}
+
+{% block body %}
+
+    <h1>History</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Query</th>
+                <th>Sentiment</th>
+                <th></th>
+            </tr>            
+        </thead>
+        <tbody>
+            {% for history in histories %}
+            <tr>
+                <td>{{ history.query }}</td>
+                <td>{{ history.sentiment }}</td>
+                <td>
+                    <form action="/delete" method="post">
+                        <input type="hidden" name="id" value="{{ history.id }}">
+                        <input type="submit" value="Delete">
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}            
+        </tbody>
+    </table>
+{% endblock %}

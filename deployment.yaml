@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: html-flask-nlp-project
+  labels:
+    app: html-flask-nlp-project
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: html-flask-nlp-project
+  template:
+    metadata:
+      labels:
+        app: html-flask-nlp-project
+    spec:
+      containers:
+      - name: html-flask-nlp-project
+        image: kaveeshkhattar/html-flask-nlp-project:1.0
+        ports:
+        - containerPort: 5000
+        env:
+        - name: FLASK_ENV
+          value: "production"
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: html-flask-nlp-project-service
+  labels:
+    app: html-flask-nlp-project
+spec:
+  selector:
+    app: html-flask-nlp-project
+  ports:
+  - name: http
+    protocol: TCP
+    port: 80
+    targetPort: 5000
+  type: NodePort
