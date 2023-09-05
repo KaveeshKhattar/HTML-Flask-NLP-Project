@@ -1,4 +1,4 @@
-{% extends layout.html %}
+{% extends "layout.html" %}
 
 {% block body %}
 
@@ -9,17 +9,27 @@
                 <th>Query</th>
                 <th>Sentiment</th>
                 <th></th>
+                <th></th>
+                <th></th>
             </tr>            
         </thead>
         <tbody>
-            {% for history in histories %}
+            {% for item in history %}
             <tr>
-                <td>{{ history.query }}</td>
-                <td>{{ history.sentiment }}</td>
+                <td>{{ item.query }}</td>
+                <td>{{ item.sentiment }}</td>
                 <td>
                     <form action="/delete" method="post">
-                        <input type="hidden" name="id" value="{{ history.id }}">
+                        <input value="{{ item.id }}" type="hidden" name="id">
                         <input type="submit" value="Delete">
+                    </form>                    
+                </td>
+
+                <td>
+                    <form action="/update" method="post">
+                        <input value="{{ item.id }}" type="hidden" name="id">
+                        <input type="text" placeholder="Enter updated query" name="query">
+                        <input type="submit" value="Update">
                     </form>
                 </td>
             </tr>
