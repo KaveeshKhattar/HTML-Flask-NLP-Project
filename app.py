@@ -29,21 +29,21 @@ def index():
 
         try:
             with sql.connect("database.db") as con:
-                print("OK1")
+                # print("OK1")
                 cur = con.cursor()
-                print("OK2")
+                # print("OK2")
                 cur.execute("INSERT INTO sentiment (query, sentiment) VALUES (?,?)", (query, sentiment))
-                print("OK3")
+                # print("OK3")
                 con.commit()
                 con.close()
-                print("PASS")
+                # print("PASS")
 
         except:
             con.rollback()
-            print("FAIL")
+            # print("FAIL")
         
         finally:
-            print("HERE WE COME")
+            # print("HERE WE COME")
             return redirect('/history')
     
 
@@ -59,7 +59,7 @@ def history():
     cur = con.cursor()
     history = cur.execute("select * from sentiment")    
 
-    print(history)
+    # print(history)
     
     return render_template("history.html", history=history)
 
@@ -70,7 +70,7 @@ def delete():
     cur = con.cursor()
 
     id = request.form.get("id")
-    print("ID:", id)
+    # print("ID:", id)
     if id:
         cur.execute("DELETE FROM sentiment WHERE id = ?", [id])
         con.commit()
@@ -86,7 +86,7 @@ def update():
 
     query = request.form.get("query", "I am HAPPY")
     id = request.form.get("id", "1")
-    print("Updating ID:", id)
+    # print("Updating ID:", id)
 
     if query and id:
         
